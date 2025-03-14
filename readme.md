@@ -94,3 +94,4 @@ void dma_workaround_copy_from_fpga(remote_ptr &q) {
 
 ```
 To verify the functionality of the system, we run simulations on both the AWS F2 FPGA instance and a local machine. Each data element is initialized to 0, and after computation, the program successfully outputs the expected results. This confirms that the entire design functions correctly.
+![image](https://github.com/user-attachments/assets/5e4849e3-e0b2-470e-9f12-0b45b49111ae)
