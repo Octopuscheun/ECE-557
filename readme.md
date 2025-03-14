@@ -13,23 +13,23 @@ Read data, SHA3, And Output data. more detailed design information are as follow
 ## Project introduction:
 This lab focuses on implementing an accelerator for the SHA-3 algorithm on an AWS F2 FPGA instance. The core idea is to design a finite state machine (FSM) to manage the processes of reading input data, performing SHA-3 computation, and outputting the results. The system is structured into five stages:
 
-s_init – Initialization Stage
+# s_init – Initialization Stage
 
 The system waits for io.req.fire(valid && ready), signaling the start of an operation. Once the request is acknowledged, it transitions to the s_read_data stage.
 
-s_read_data – Data Reading Stage
+# s_read_data – Data Reading Stage
 
 In this stage, 17 data elements are read into the message buffer, which is directly connected to the SHA-3 Core Input Vector. When the message buffer is fully populated (message_index == 17.U), the system transitions to the s_sha3 stage.
 
-s_sha3 – SHA-3 Computation Stage
+# s_sha3 – SHA-3 Computation Stage
 
 The SHA-3 computation is performed in this stage, leveraging the implementation from the previous lab. Once the hash computation completes (hash.valid && hash.ready), the output data is stored in the hash buffer, and the system moves to the s_write_data stage.
 
-s_write_data – Data Writing Stage
+# s_write_data – Data Writing Stage
 
 The computed hash is output through vec_out_data.data.bits. A total of 4 data elements are written, and upon completion (hash_index == 4.U), the system transitions to the s_done stage.
 
-s_done – Completion Stage
+# s_done – Completion Stage
 
 This stage marks the completion of the SHA-3 acceleration process. When io.resp.fire(ready && valid), the system resets and returns to the s_init stage, ready for the next operation.
 
